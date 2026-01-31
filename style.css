@@ -1,0 +1,189 @@
+/* style.css — Shared styles for the affiliate promo site (final update) */
+
+/* Base reset and accessible defaults */
+:root { --promo-radius: 10px; --touch-size: 48px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #0b0f14; /* dark background */
+  color: #e7f2ff; /* light text */
+  line-height: 1.65;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Layout container */
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+/* Fixed top navigation */
+.site-header { position: fixed; top: 0; left: 0; right: 0; background: rgba(6,8,12,0.95); border-bottom: 1px solid rgba(255,255,255,0.04); z-index: 200; }
+.nav-wrap { display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 12px 20px; max-width: 1100px; margin: 0 auto; }
+.brand { color: #fff; font-weight:700; text-decoration:none; font-size:1.05rem; }
+.main-nav ul { list-style:none; display:flex; gap: 10px; }
+.main-nav a { color: #cfe8ff; text-decoration:none; padding: 8px 10px; border-radius: 6px; font-size:0.95rem; }
+.main-nav a:hover, .main-nav a:focus { background: rgba(255,255,255,0.03); outline: 2px solid rgba(82, 190, 255, 0.12); }
+
+/* Eye-catching navigation buttons */
+.main-nav ul { list-style:none; display:flex; gap: 12px; align-items:center; }
+.nav-btn { display:inline-flex; gap:8px; align-items:center; justify-content:center; padding:12px 16px; border-radius:14px; font-weight:900; font-size:1rem; text-decoration:none; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease; }
+.nav-btn:focus { outline: 3px solid rgba(0,190,255,0.18); outline-offset: 2px; }
+.nav-1xbet { background: linear-gradient(180deg,#007acc,#005fa3); color:#fff; }
+.nav-888starz { background: linear-gradient(180deg,#ffd86b,#f6b600); color:#2b1a00; }
+.nav-melbet { background: linear-gradient(180deg,#28d36b,#0ba05a); color:#01220a; }
+.nav-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,0,0,0.45); opacity: 0.98; }
+.nav-btn.active { box-shadow: 0 18px 45px rgba(0,0,0,0.6); transform: translateY(-2px) scale(1.02); }
+
+/* Mobile optimization: larger tap targets and horizontal scroll when needed */
+@media (max-width:640px){
+  .main-nav ul{ gap:10px; overflow-x:auto; padding-bottom:8px; }
+  .nav-btn{ padding:14px 18px; font-size:0.98rem; border-radius:12px; }
+}
+
+/* Copy button */
+.copy-btn { background: linear-gradient(180deg,#0b78ff,#0056d6); color:#fff; border:none; padding:8px 12px; min-height:44px; border-radius:var(--promo-radius); font-weight:800; cursor:pointer; box-shadow:0 10px 28px rgba(11,120,255,0.12); transition: transform .12s, background .12s; font-size:1rem; }
+.copy-btn:hover, .copy-btn:focus { transform: translateY(-2px); outline: none; }
+.copy-btn.copied { background: linear-gradient(180deg,#19b44a,#0a9a3a); box-shadow:0 10px 30px rgba(10,154,58,0.14); }
+
+/* Ensure copy button aligns nicely with promo layout */
+.promo-row { display:flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+.promo-row .copy-btn { margin-left: 6px; }
+
+/* Brand logos in header */
+.brand-logos { display:flex; gap:10px; align-items:center; }
+.logo { display:inline-flex; align-items:center; justify-content:center; padding:6px 12px; border-radius:12px; font-weight:800; font-size:0.95rem; }
+.logo-1xbet { background: linear-gradient(180deg,#007acc,#005fa3); color:#ffffff; box-shadow: 0 4px 18px rgba(0,122,204,0.08); }
+.logo-888starz { background: linear-gradient(180deg,#ffd86b,#f6b600); color:#2b1a00; box-shadow: 0 4px 18px rgba(246,182,0,0.08); }
+.logo-melbet { background: linear-gradient(180deg,#2bd167,#0d9b4a); color:#01220a; box-shadow: 0 4px 18px rgba(45,177,95,0.08); }
+
+/* Image logo styles for 1xBet */
+.logo-img, .logo-inline { display:inline-block; height:36px; width:auto; vertical-align:middle; margin-right:8px; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.25); }
+
+/* Inline promo logos: rounded badge that fills the promo-box height when JS sizes it. Use object-fit:cover so logos visually fill the badge, and padding + box-sizing to keep a clean inner gap. */
+.logo-inline {
+  display:inline-block;
+  width:auto; /* JS may set explicit pixel sizes */
+  height:36px;
+  padding:6px; /* inner gap so logo doesn't touch edges */
+  box-sizing: border-box; /* ensure padding counts within width/height set by JS */
+  border-radius:var(--promo-radius); /* match button radius for visual unity */
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  object-fit:cover;
+  background: rgba(255,255,255,0.02);
+  transition: width .14s ease, height .14s ease, transform .12s ease, border-radius .12s ease;
+  vertical-align:middle;
+}
+
+@media (max-width:640px){ .logo-img, .logo-inline { height:32px; margin-right:6px; } }
+
+@media (max-width:420px){
+  /* Mobile stacking and full-width tap targets */
+  .main-nav ul { flex-direction: column; gap: 8px; }
+  .nav-btn { display:block; width:100%; text-align:center; padding:14px 16px; min-height:var(--touch-size); }
+
+  .promo-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .promo-row .copy-btn, .promo-row .promo-box, .btn-get-started, .app-btn { width:100% !important; display:block; min-height:var(--touch-size); padding:14px; text-align:center; }
+
+  .promo-row .logo-inline{ height:48px; width:auto; margin-bottom:8px; border-radius:var(--promo-radius); padding:6px; }
+} 
+
+/* Ensure content not hidden under fixed header */
+.site-main { padding-top: 96px; padding-bottom: 40px; }
+
+/* Headings */
+h1 { font-size: 1.55rem; color: #ffffff; margin-bottom: 12px; }
+h2 { font-size: 1.15rem; color: #cbeeff; margin-top: 18px; margin-bottom: 8px; }
+h3 { font-size: 1rem; color: #bfe7ff; margin-top: 10px; margin-bottom: 6px; }
+
+/* Hero and lead */
+.hero { margin-bottom: 12px; }
+.hero-banner { display:flex; align-items:center; justify-content:flex-start; border-radius:8px; padding:24px; color:#fff; margin-bottom:10px; }
+.banner-1xbet { background: linear-gradient(90deg,#007acc 0%,#004f85 100%); }
+.banner-888starz { background: linear-gradient(90deg,#ffd86b 0%,#f6b600 100%); color:#2b1a00; }
+.banner-melbet { background: linear-gradient(90deg,#28d36b 0%,#0ba05a 100%); }
+.brand-badge { padding:12px 18px; border-radius:12px; font-weight:900; font-size:1.2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+
+.hero-grid { display:block; }
+.lead { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; margin-top: 8px; color:#eaf6ff; }
+
+/* Promo code box - large and attention-grabbing */
+.promo-row { display:flex; gap: 12px; align-items:center; margin-top: 12px; flex-wrap:wrap; }
+.promo-box { display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#071123,#0b2340); border: 1px solid rgba(255,255,255,0.06); padding:12px 16px; border-radius:8px; font-family: monospace; font-size:1rem; color:#e6fbff; box-shadow: 0 8px 20px rgba(0,122,204,0.08); }
+.promo-box-large { display:inline-flex; align-items:center; justify-content:center; font-size:1.25rem; padding: 14px 18px; letter-spacing:1px; font-weight:800; }
+
+/* Make copy button visually compatible and ensure JS can size it */
+.promo-row .copy-btn { display:inline-flex; align-items:center; justify-content:center; padding: 0 12px; border-radius:var(--promo-radius); font-weight:800; cursor:pointer; box-shadow:0 10px 28px rgba(11,120,255,0.12); transition: transform .12s, background .12s; }
+.promo-row { align-items: center; }
+
+/* On very small screens, allow buttons to stack and be full-width */
+@media (max-width: 420px){
+  .promo-row { flex-direction: column; align-items: stretch; }
+  .promo-row .copy-btn, .promo-row .promo-box { width: 100% !important; }
+} 
+
+/* CTA stack */
+.cta-stack { display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+.btn-get-started { display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#00ff9e,#00b37a); color:#002018; padding:14px 20px; min-height:var(--touch-size); border-radius:var(--promo-radius); text-decoration:none; font-weight:800; box-shadow:0 10px 30px rgba(0,179,122,0.12); font-size:1rem; }
+.btn-get-started:hover, .btn-get-started:focus { transform: translateY(-1px); box-shadow: 0 12px 36px rgba(0,179,122,0.18); outline:none; }
+
+/* App buttons */
+.app-buttons { display:flex; gap:8px; margin-top:6px; flex-wrap:wrap; }
+.app-btn { display:inline-flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.03); color:#dff8ff; padding:10px 12px; min-height:var(--touch-size); border-radius:var(--promo-radius); text-decoration:none; font-weight:700; font-size:0.95rem; }
+.app-btn.ios::before { content: ""; margin-right:6px; }
+.app-btn.android::before { content: "🤖"; margin-right:6px; }
+.app-btn.web::before { content: "🌐"; margin-right:6px; }
+.app-btn:hover, .app-btn:focus { background: rgba(255,255,255,0.05); outline: none; }
+
+/* Trust rating built using CSS star elements */
+.trust { margin-top:8px; display:flex; gap:10px; align-items:center; }
+.stars { display:flex; gap:4px; }
+.star { color:#3b4650; font-size:1.2rem; }
+.star.filled { color:#ffcb4a; }
+.rating-text { color:#cfe8ff; font-size:0.95rem; }
+
+/* Table */
+.table-wrap { overflow-x:auto; margin-top: 12px; }
+table.compare { width: 100%; border-collapse: collapse; min-width: 520px; }
+table.compare th, table.compare td { text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+table.compare thead th { color: #d9f2ff; font-weight:600; }
+
+/* Visual placeholders (CSS only) */
+.visual-placeholder { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:40px; border-radius:8px; color:#dfefff; text-align:center; }
+
+/* First deposit callouts */
+.first-deposit-hero { margin-left: 18px; background: rgba(255,203,74,0.12); color: #fff; padding:10px 14px; border-radius:8px; border: 1px solid rgba(255,203,74,0.18); font-weight:800; }
+.first-deposit-box { background: linear-gradient(180deg,#1b2a3a,#0d1a2a); border: 1px solid rgba(255,203,74,0.12); color: #ffd86b; padding:10px 12px; border-radius:8px; font-weight:800; }
+.home-hero .brand-logos { display:flex; gap:10px; align-items:center; }
+.home-hero .first-deposit-hero { margin-top:12px; font-size:1.05rem; }
+
+
+/* Notes & legal */
+.note { color: #b9d5ef; font-size:0.95rem; margin-top: 8px; }
+.legal { margin-top: 18px; padding: 12px; border-left: 3px solid rgba(255,255,255,0.04); color: #cfe8ff; background: rgba(255,255,255,0.01); border-radius: 6px; }
+
+/* Footer */
+.site-footer { border-top: 1px solid rgba(255,255,255,0.04); margin-top: 28px; padding: 18px 20px; color: #bcdcf3; font-size:0.95rem; background: rgba(6,8,12,0.95); }
+
+/* Accessibility focus */
+a:focus { outline: 3px solid rgba(0,190,255,0.16); outline-offset: 2px; }
+
+/* Responsive rules */
+@media (min-width: 720px) {
+  h1 { font-size: 2rem; }
+  .main-nav a { font-size: 1rem; }
+  .hero-grid { display:grid; grid-template-columns: 1fr 360px; gap:18px; align-items:start; }
+  .cta-stack { align-items:flex-end; }
+}
+
+@media (max-width: 640px) {
+  .nav-wrap { padding: 12px; }
+  .main-nav ul { gap: 6px; }  .nav-btn { padding: 14px 18px; min-height:var(--touch-size); font-size:1rem; }
+  .app-btn { padding: 12px 14px; min-height:var(--touch-size); }  .promo-box-large { font-size:1.25rem; padding:14px 18px; }
+  .brand-badge { font-size:1rem; padding:8px 12px; }
+}
+
+/* Small helper styles */
+.container ul { margin-top: 8px; padding-left: 18px; }
+.container ol { margin-top: 8px; padding-left: 18px; }
+.promo-inline { font-weight:700; }
