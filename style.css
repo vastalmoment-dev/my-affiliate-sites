@@ -187,3 +187,20 @@ a:focus { outline: 3px solid rgba(0,190,255,0.16); outline-offset: 2px; }
 .container ul { margin-top: 8px; padding-left: 18px; }
 .container ol { margin-top: 8px; padding-left: 18px; }
 .promo-inline { font-weight:700; }
+/* Mobile navigation fix */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .nav-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
